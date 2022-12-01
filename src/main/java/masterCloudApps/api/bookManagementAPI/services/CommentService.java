@@ -10,4 +10,5 @@ public interface CommentService {
     Comment save(Comment comment);
     Comment deleteById(Long id);
     Comment edit(Long id, Comment comment);
+    List<Comment> getByAuthorId(Long id);
 }

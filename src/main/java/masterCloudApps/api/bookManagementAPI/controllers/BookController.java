@@ -1,7 +1,10 @@
 package masterCloudApps.api.bookManagementAPI.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import masterCloudApps.api.bookManagementAPI.dto.BookDto;
 import masterCloudApps.api.bookManagementAPI.models.Book;
 import masterCloudApps.api.bookManagementAPI.services.BookService;
+import masterCloudApps.api.bookManagementAPI.views.View;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +16,13 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RestController
 @RequestMapping(name = "/books")
 public class BookController {
-    private BookService bookService;
+    private final BookService bookService;
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
+    @JsonView(value = View.Book.class)
     @GetMapping(name = "/{id}")
     public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
         Book book = this.bookService.getById(id);
@@ -30,6 +34,7 @@ public class BookController {
 
     @GetMapping(name = "/")
     public ResponseEntity<Object> getAll() {
+        // TODO pagination
         List<Book> bookList = this.bookService.getAll();
         if (bookList.size() > 0) {
             return ResponseEntity.ok(bookList);
@@ -65,5 +70,15 @@ public class BookController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping(name = "/titles")
+    public ResponseEntity<Object> getAllTitles() {
+        // TODO pagination
+        List<BookDto> bookList = this.bookService.getAllTitles();
+        if (bookList.size() > 0) {
+            return ResponseEntity.ok(bookList);
+        }
+        return ResponseEntity.noContent().build();
     }
 }

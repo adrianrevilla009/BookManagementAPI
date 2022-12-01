@@ -1,7 +1,9 @@
 package masterCloudApps.api.bookManagementAPI.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import masterCloudApps.api.bookManagementAPI.models.Comment;
 import masterCloudApps.api.bookManagementAPI.services.CommentService;
+import masterCloudApps.api.bookManagementAPI.views.View;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +15,13 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RestController
 @RequestMapping(name = "/comments")
 public class CommentController {
-    private CommentService commentService;
+    private final CommentService commentService;
 
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
 
+    @JsonView(value = View.Comment.class)
     @GetMapping(name = "/{id}")
     public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
         Comment comment = this.commentService.getById(id);
@@ -30,6 +33,7 @@ public class CommentController {
 
     @GetMapping(name = "/")
     public ResponseEntity<Object> getAll() {
+        // TODO pagination
         List<Comment> commentList = this.commentService.getAll();
         if (commentList.size() > 0) {
             return ResponseEntity.ok(commentList);
@@ -65,5 +69,15 @@ public class CommentController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @JsonView(value = View.Base.class)
+    @GetMapping(name = "/author/{id}")
+    public ResponseEntity<Object> getByAuthorId(@PathVariable("id") Long id) {
+        List<Comment> commentList = this.commentService.getByAuthorId(id);
+        if (commentList.size() > 0) {
+            return ResponseEntity.ok(commentList);
+        }
+        return ResponseEntity.noContent().build();
     }
 }

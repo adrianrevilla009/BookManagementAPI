@@ -13,7 +13,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RestController
 @RequestMapping(name = "/users")
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -30,6 +30,7 @@ public class UserController {
 
     @GetMapping(name = "/")
     public ResponseEntity<Object> getAll() {
+        // TODO pagination
         List<User> userList = this.userService.getAll();
         if (userList.size() > 0) {
             return ResponseEntity.ok(userList);

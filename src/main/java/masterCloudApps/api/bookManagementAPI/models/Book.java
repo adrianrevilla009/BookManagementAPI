@@ -1,7 +1,9 @@
 package masterCloudApps.api.bookManagementAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import masterCloudApps.api.bookManagementAPI.views.View;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Book {
+    @JsonView(value = View.Base.class)
     private Long id;
     private String title;
     private String resume;
@@ -16,6 +19,7 @@ public class Book {
     private String editorial;
     private LocalDate publicationDate;
 
+    @JsonView(value = View.Book.class)
     private List<Comment> commentList;
 
     @Override
