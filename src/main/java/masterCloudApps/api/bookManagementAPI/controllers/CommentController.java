@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @RestController
-@RequestMapping(name = "/comments")
+@RequestMapping(value = "/comments")
 public class CommentController {
     private final CommentService commentService;
 
@@ -22,7 +22,7 @@ public class CommentController {
     }
 
     @JsonView(value = View.Comment.class)
-    @GetMapping(name = "/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
         Comment comment = this.commentService.getById(id);
         if (comment != null) {
@@ -31,7 +31,7 @@ public class CommentController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping(name = "/")
+    @GetMapping(value = "/")
     public ResponseEntity<Object> getAll() {
         // TODO pagination
         List<Comment> commentList = this.commentService.getAll();
@@ -41,7 +41,7 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(name = "/")
+    @PostMapping(value = "/")
     public ResponseEntity<Object> save(@RequestBody Comment comment) {
         Comment savedComment = this.commentService.save(comment);
         if (savedComment != null) {
@@ -51,7 +51,7 @@ public class CommentController {
         return ResponseEntity.internalServerError().build();
     }
 
-    @DeleteMapping(name = "/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable("id") Long id) {
         Comment deletedComment = this.commentService.deleteById(id);
         if (deletedComment != null) {
@@ -61,7 +61,7 @@ public class CommentController {
         }
     }
 
-    @PutMapping(name = "/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Object> edit(@PathVariable("id") Long id, @RequestBody Comment comment) {
         Comment savedComment = this.commentService.edit(id, comment);
         if (savedComment != null) {
@@ -72,7 +72,7 @@ public class CommentController {
     }
 
     @JsonView(value = View.Base.class)
-    @GetMapping(name = "/author/{id}")
+    @GetMapping(value = "/author/{id}")
     public ResponseEntity<Object> getByAuthorId(@PathVariable("id") Long id) {
         List<Comment> commentList = this.commentService.getByAuthorId(id);
         if (commentList.size() > 0) {

@@ -10,13 +10,13 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
-    private final UserRepository userRepository;
+    /*private final UserRepository userRepository;
     private final CommentService commentService;
 
     public UserServiceImpl(UserRepository userRepository, CommentService commentService) {
         this.userRepository = userRepository;
         this.commentService = commentService;
-    }
+    }*/
 
     @Override
     public User getById(Long id) {
@@ -35,10 +35,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User deleteById(Long id) {
-        List<Comment> commentList = this.commentService.getByAuthorId(id);
+        /*List<Comment> commentList = this.commentService.getByAuthorId(id);
         if (commentList.size() > 0) {
 
-        }
+        }*/
         return null;
     }
 

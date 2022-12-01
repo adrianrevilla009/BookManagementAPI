@@ -11,7 +11,7 @@ import java.util.List;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @RestController
-@RequestMapping(name = "/users")
+@RequestMapping(value = "/users")
 public class UserController {
     private final UserService userService;
 
@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(name = "/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
         User user = this.userService.getById(id);
         if (user != null) {
@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping(name = "/")
+    @GetMapping(value = "/")
     public ResponseEntity<Object> getAll() {
         // TODO pagination
         List<User> userList = this.userService.getAll();
@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(name = "/")
+    @PostMapping(value = "/")
     public ResponseEntity<Object> save(@RequestBody User user) {
         User savedUser = this.userService.save(user);
         if (savedUser != null) {
@@ -48,7 +48,7 @@ public class UserController {
         return ResponseEntity.internalServerError().build();
     }
 
-    @DeleteMapping(name = "/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable("id") Long id) {
         User deletedUser = this.userService.deleteById(id);
         if (deletedUser != null) {
@@ -58,7 +58,7 @@ public class UserController {
         }
     }
 
-    @PutMapping(name = "/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Object> edit(@PathVariable("id") Long id, @RequestBody User user) {
         User userComment = this.userService.edit(id, user);
         if (userComment != null) {

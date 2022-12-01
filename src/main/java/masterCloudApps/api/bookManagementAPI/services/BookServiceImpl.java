@@ -3,17 +3,19 @@ package masterCloudApps.api.bookManagementAPI.services;
 import masterCloudApps.api.bookManagementAPI.dto.BookDto;
 import masterCloudApps.api.bookManagementAPI.models.Book;
 import masterCloudApps.api.bookManagementAPI.repository.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService{
+/*    @Autowired
     private final BookRepository bookRepository;
 
     public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-    }
+    }*/
 
     @Override
     public Book getById(Long id) {
