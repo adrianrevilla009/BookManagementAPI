@@ -1,14 +1,16 @@
 package masterCloudApps.api.bookManagementAPI.services;
 
 import masterCloudApps.api.bookManagementAPI.models.Comment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface CommentService {
-    Comment getById(Long id);
-    List<Comment> getAll();
+    Optional<Comment> findById(Long id);
+    Page<Comment> findAll(Pageable page);
     Comment save(Comment comment);
-    Comment deleteById(Long id);
+    Optional<Comment> deleteById(Long id);
     Comment edit(Long id, Comment comment);
-    List<Comment> getByAuthorId(Long id);
+    Page<Comment> findByAuthorId(Long id, Pageable page);
 }

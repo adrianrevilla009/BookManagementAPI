@@ -1,7 +1,9 @@
 package masterCloudApps.api.bookManagementAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import masterCloudApps.api.bookManagementAPI.views.View;
 
@@ -10,17 +12,28 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@Builder
+@Entity
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView(value = View.Base.class)
     private Long id;
+
     private String title;
     private String resume;
-    private User author;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Userr author;
     private String editorial;
     private LocalDate publicationDate;
 
+    // @OneToMany(mappedBy="book", cascade=CascadeType.ALL, orphanRemoval=true)
+    // TODO not able to make cascade relation, entity already merged exception
+    @OneToMany(mappedBy="book")
     @JsonView(value = View.Book.class)
     private List<Comment> commentList;
+
+    public Book() {}
 
     @Override
     public String toString() {

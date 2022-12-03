@@ -2,15 +2,17 @@ package masterCloudApps.api.bookManagementAPI.services;
 
 import masterCloudApps.api.bookManagementAPI.dto.BookDto;
 import masterCloudApps.api.bookManagementAPI.models.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
-    Book getById(Long id);
-    List<Book> getAll();
+    Optional<Book> findById(Long id);
+    Page<Book> findAll(Pageable page);
     Book save(Book book);
-    Book deleteById(Long id);
+    Optional<Book> deleteById(Long id);
     Book edit(Long id, Book book);
 
-    List<BookDto> getAllTitles();
+    Page<BookDto> findAllTitles(Pageable page);
 }

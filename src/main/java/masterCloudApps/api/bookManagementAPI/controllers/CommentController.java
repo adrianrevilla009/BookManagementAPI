@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import masterCloudApps.api.bookManagementAPI.models.Comment;
 import masterCloudApps.api.bookManagementAPI.services.CommentService;
 import masterCloudApps.api.bookManagementAPI.views.View;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
@@ -23,20 +25,16 @@ public class CommentController {
 
     @JsonView(value = View.Comment.class)
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
-        Comment comment = this.commentService.getById(id);
-        if (comment != null) {
-            return ResponseEntity.ok(comment);
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Comment> findById(@PathVariable("id") Long id) {
+        Optional<Comment> comment = this.commentService.findById(id);
+        return ResponseEntity.of(comment);
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<Object> getAll() {
-        // TODO pagination
-        List<Comment> commentList = this.commentService.getAll();
-        if (commentList.size() > 0) {
-            return ResponseEntity.ok(commentList);
+    public ResponseEntity<Object> findAll(Pageable page) {
+        Page<Comment> commentPage = this.commentService.findAll(page);
+        if (commentPage.getTotalElements() > 0) {
+            return ResponseEntity.ok(commentPage);
         }
         return ResponseEntity.noContent().build();
     }
@@ -52,13 +50,9 @@ public class CommentController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable("id") Long id) {
-        Comment deletedComment = this.commentService.deleteById(id);
-        if (deletedComment != null) {
-            return ResponseEntity.ok(deletedComment);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Comment> deleteById(@PathVariable("id") Long id) {
+        Optional<Comment> comment = this.commentService.deleteById(id);
+        return ResponseEntity.of(comment);
     }
 
     @PutMapping(value = "/{id}")
@@ -73,10 +67,10 @@ public class CommentController {
 
     @JsonView(value = View.Base.class)
     @GetMapping(value = "/author/{id}")
-    public ResponseEntity<Object> getByAuthorId(@PathVariable("id") Long id) {
-        List<Comment> commentList = this.commentService.getByAuthorId(id);
-        if (commentList.size() > 0) {
-            return ResponseEntity.ok(commentList);
+    public ResponseEntity<Object> findByAuthorId(@PathVariable("id") Long id, Pageable page) {
+        Page<Comment> commentPage = this.commentService.findByAuthorId(id, page);
+        if (commentPage.getTotalElements() > 0) {
+            return ResponseEntity.ok(commentPage);
         }
         return ResponseEntity.noContent().build();
     }

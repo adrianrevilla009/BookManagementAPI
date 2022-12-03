@@ -1,15 +1,18 @@
 package masterCloudApps.api.bookManagementAPI.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import masterCloudApps.api.bookManagementAPI.data.BookData;
 import masterCloudApps.api.bookManagementAPI.dto.BookDto;
 import masterCloudApps.api.bookManagementAPI.models.Book;
 import masterCloudApps.api.bookManagementAPI.services.BookService;
 import masterCloudApps.api.bookManagementAPI.views.View;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
@@ -17,27 +20,25 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RequestMapping(value = "/books")
 public class BookController {
     private final BookService bookService;
+    private final BookData bookData;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, BookData bookData) {
         this.bookService = bookService;
+        this.bookData = bookData;
     }
 
     @JsonView(value = View.Book.class)
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getById(@PathVariable("id") Long id) {
-        Book book = this.bookService.getById(id);
-        if (book != null) {
-            return ResponseEntity.ok(book);
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Book> findById(@PathVariable("id") Long id) {
+        Optional<Book> book = this.bookService.findById(id);
+        return ResponseEntity.of(book);
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<Object> getAll() {
-        // TODO pagination
-        List<Book> bookList = this.bookService.getAll();
-        if (bookList.size() > 0) {
-            return ResponseEntity.ok(bookList);
+    public ResponseEntity<Object> findAll(Pageable page) {
+        Page<Book> bookPage = this.bookService.findAll(page);
+        if (bookPage.getTotalElements() > 0) {
+            return ResponseEntity.ok(bookPage);
         }
         return ResponseEntity.noContent().build();
     }
@@ -53,13 +54,9 @@ public class BookController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable("id") Long id) {
-        Book deletedBook = this.bookService.deleteById(id);
-        if (deletedBook != null) {
-            return ResponseEntity.ok(deletedBook);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Book> deleteById(@PathVariable("id") Long id) {
+        Optional<Book> book = this.bookService.deleteById(id);
+        return ResponseEntity.of(book);
     }
 
     @PutMapping(value = "/{id}")
@@ -73,11 +70,10 @@ public class BookController {
     }
 
     @GetMapping(value = "/titles")
-    public ResponseEntity<Object> getAllTitles() {
-        // TODO pagination
-        List<BookDto> bookList = this.bookService.getAllTitles();
-        if (bookList.size() > 0) {
-            return ResponseEntity.ok(bookList);
+    public ResponseEntity<Object> findAllTitles(Pageable page) {
+        Page<BookDto> bookDtoPage = this.bookService.findAllTitles(page);
+        if (bookDtoPage.getTotalElements() > 0) {
+            return ResponseEntity.ok(bookDtoPage);
         }
         return ResponseEntity.noContent().build();
     }

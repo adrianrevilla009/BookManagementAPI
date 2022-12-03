@@ -1,13 +1,15 @@
 package masterCloudApps.api.bookManagementAPI.services;
 
-import masterCloudApps.api.bookManagementAPI.models.User;
+import masterCloudApps.api.bookManagementAPI.models.Userr;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
-    User getById(Long id);
-    List<User> getAll();
-    User save(User user);
-    User deleteById(Long id);
-    User edit(Long id, User user);
+    Optional<Userr> findById(Long id);
+    Page<Userr> findAll(Pageable page);
+    Userr save(Userr userr);
+    Optional<Userr> deleteById(Long id);
+    Userr edit(Long id, Userr userr);
 }
