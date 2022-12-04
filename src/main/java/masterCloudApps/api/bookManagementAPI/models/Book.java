@@ -17,7 +17,7 @@ import java.util.List;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(value = View.Base.class)
+    @JsonView(value = View.Book.class)
     private Long id;
 
     private String title;

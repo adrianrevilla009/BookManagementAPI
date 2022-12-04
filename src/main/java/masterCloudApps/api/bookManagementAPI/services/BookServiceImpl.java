@@ -50,6 +50,8 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Page<BookDto> findAllTitles(Pageable page) {
-        return this.bookRepository.findAllTitles(page);
+        List<BookDto> bookDtoList = this.bookRepository.findAllTitles(page);
+        // TODO use rowMapper
+
     }
 }

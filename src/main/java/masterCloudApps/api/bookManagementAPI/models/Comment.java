@@ -13,17 +13,19 @@ import masterCloudApps.api.bookManagementAPI.views.View;
 @Entity
 public class Comment {
     @Id
-    @JsonView(value = View.Book.class)
+    @JsonView(value = View.Comment.class)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JsonView(value = View.Base.class)
+    @JsonView(value = View.AuthorComment.class)
     private Book book;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JsonView(value = View.Book.class)
+    @JsonView(value = View.Comment.class)
     private Userr author;
+    @JsonView(value = View.Book.class)
     private String comment;
+    @JsonView(value = View.Book.class)
     private int points;
 
     public Comment() {}

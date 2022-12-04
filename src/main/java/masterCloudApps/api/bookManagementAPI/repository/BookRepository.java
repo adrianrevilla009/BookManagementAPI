@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    @Query("select b.id as id, b.title as title FROM Book b")
-    Page<BookDto> findAllTitles(Pageable page);
+    @Query("select b.* FROM Book b")
+    Page<Book> findAllTitles(Pageable page);
 }

@@ -13,7 +13,7 @@ import masterCloudApps.api.bookManagementAPI.views.View;
 @Entity
 public class Userr {
     @Id
-    @JsonView(value = View.Book.class)
+    @JsonView(value = View.Comment.class)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nickname;

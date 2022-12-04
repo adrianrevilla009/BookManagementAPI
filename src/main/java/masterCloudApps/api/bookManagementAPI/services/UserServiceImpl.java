@@ -1,11 +1,13 @@
 package masterCloudApps.api.bookManagementAPI.services;
 
+import masterCloudApps.api.bookManagementAPI.models.Comment;
 import masterCloudApps.api.bookManagementAPI.models.Userr;
 import masterCloudApps.api.bookManagementAPI.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,9 +37,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Optional<Userr> deleteById(Long id) {
-        Optional<Userr> userr = this.userRepository.findById(id);
-        this.userRepository.deleteById(id);
-        return userr;
+        List<Comment> commentList = this.commentService.findByAuthorId(id);
+        if (commentList.size() > 0) {
+            Optional<Userr> userr = this.userRepository.findById(id);
+            this.userRepository.deleteById(id);
+            return userr;
+        }
+        return Optional.empty();
     }
 
     @Override

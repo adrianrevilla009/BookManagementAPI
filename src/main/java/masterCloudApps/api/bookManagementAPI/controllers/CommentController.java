@@ -1,6 +1,7 @@
 package masterCloudApps.api.bookManagementAPI.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import masterCloudApps.api.bookManagementAPI.dto.CommentDto;
 import masterCloudApps.api.bookManagementAPI.models.Comment;
 import masterCloudApps.api.bookManagementAPI.services.CommentService;
 import masterCloudApps.api.bookManagementAPI.views.View;
@@ -65,10 +66,9 @@ public class CommentController {
         }
     }
 
-    @JsonView(value = View.Base.class)
     @GetMapping(value = "/author/{id}")
     public ResponseEntity<Object> findByAuthorId(@PathVariable("id") Long id, Pageable page) {
-        Page<Comment> commentPage = this.commentService.findByAuthorId(id, page);
+        Page<CommentDto> commentPage = this.commentService.findByAuthorId(id, page);
         if (commentPage.getTotalElements() > 0) {
             return ResponseEntity.ok(commentPage);
         }

@@ -2,7 +2,9 @@ package masterCloudApps.api.bookManagementAPI.views;
 
 public class View {
     public interface Base {}
-    public interface Book extends Base {}
-    public interface Comment extends Book {}
+    public interface Book extends Comment {}
+    public interface Comment {}
+
+    public interface AuthorComment {}
 
 }
