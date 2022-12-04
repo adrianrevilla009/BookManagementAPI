@@ -22,7 +22,7 @@ public class Book {
 
     private String title;
     private String resume;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Userr author;
     private String editorial;
     private LocalDate publicationDate;

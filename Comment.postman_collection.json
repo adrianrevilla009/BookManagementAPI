@@ -12,12 +12,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080{{commentPrefix}}/1",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{commentPrefix}}/1",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{commentPrefix}}"
 					],
-					"port": "8080{{commentPrefix}}",
 					"path": [
 						"1"
 					]
@@ -27,16 +25,26 @@
 		},
 		{
 			"name": "getAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"size\": 10,\r\n    \"sort\": \"id\",\r\n    \"direction\": \"ASC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080{{commentPrefix}}/",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{commentPrefix}}/",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{commentPrefix}}"
 					],
-					"port": "8080{{commentPrefix}}",
 					"path": [
 						""
 					]
@@ -59,12 +67,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080{{commentPrefix}}/",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{commentPrefix}}/",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{commentPrefix}}"
 					],
-					"port": "8080{{commentPrefix}}",
 					"path": [
 						""
 					]
@@ -79,7 +85,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n            \"id\": 1,\r\n            \"author\": {\r\n               \"id\": 1,\r\n                \"nickname\": \"test\",\r\n                \"email\": \"test\"\r\n            },\r\n            \"comment\": \"test\",\r\n            \"points\": 1,\r\n            \"book\": {\r\n                \"id\": 1,\r\n                \"title\": \"test\",\r\n                \"resume\": \"test\",\r\n                \"author\": {\r\n                    \"id\": 1,\r\n                    \"nickname\": \"test\",\r\n                    \"email\": \"test\"\r\n                },\r\n                \"editorial\": \"test\",\r\n                \"publicationDate\": \"2022-12-01\",\r\n                \"commentList\": []\r\n            }\r\n        }",
+					"raw": "{\r\n            \"id\": 1,\r\n            \"author\": {\r\n               \"id\": 1,\r\n                \"nickname\": \"test 2\",\r\n                \"email\": \"test 2\"\r\n            },\r\n            \"comment\": \"test 2\",\r\n            \"points\": 1,\r\n            \"book\": {\r\n                \"id\": 1,\r\n                \"title\": \"test\",\r\n                \"resume\": \"test\",\r\n                \"author\": {\r\n                    \"id\": 1,\r\n                    \"nickname\": \"test\",\r\n                    \"email\": \"test\"\r\n                },\r\n                \"editorial\": \"test\",\r\n                \"publicationDate\": \"2022-12-01\",\r\n                \"commentList\": []\r\n            }\r\n        }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,12 +93,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080{{commentPrefix}}/1",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{commentPrefix}}/1",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{commentPrefix}}"
 					],
-					"port": "8080{{commentPrefix}}",
 					"path": [
 						"1"
 					]
@@ -106,12 +110,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080{{commentPrefix}}/1",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{commentPrefix}}/1",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{commentPrefix}}"
 					],
-					"port": "8080{{commentPrefix}}",
 					"path": [
 						"1"
 					]
@@ -125,12 +127,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080{{commentPrefix}}/author/1",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{commentPrefix}}/author/1",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{commentPrefix}}"
 					],
-					"port": "8080{{commentPrefix}}",
 					"path": [
 						"author",
 						"1"

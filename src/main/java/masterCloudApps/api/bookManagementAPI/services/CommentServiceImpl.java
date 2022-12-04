@@ -2,7 +2,9 @@ package masterCloudApps.api.bookManagementAPI.services;
 
 import masterCloudApps.api.bookManagementAPI.dto.CommentDto;
 import masterCloudApps.api.bookManagementAPI.models.Comment;
+import masterCloudApps.api.bookManagementAPI.models.Userr;
 import masterCloudApps.api.bookManagementAPI.repository.CommentRepository;
+import masterCloudApps.api.bookManagementAPI.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +17,11 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
-    public CommentServiceImpl(CommentRepository commentRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, UserRepository userRepository) {
         this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -32,6 +36,8 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment save(Comment comment) {
+        Userr savedAuthor = this.userRepository.save(comment.getAuthor());
+        comment.setAuthor(savedAuthor);
         return this.commentRepository.save(comment);
     }
 
@@ -45,6 +51,9 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Comment edit(Long id, Comment comment) {
         this.commentRepository.findById(id).orElseThrow();
+
+        Userr savedAuthor = this.userRepository.save(comment.getAuthor());
+        comment.setAuthor(savedAuthor);
 
         comment.setId(id);
         return this.commentRepository.save(comment);

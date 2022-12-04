@@ -12,12 +12,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080{{bookPrefix}}/1",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{bookPrefix}}/1",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{bookPrefix}}"
 					],
-					"port": "8080{{bookPrefix}}",
 					"path": [
 						"1"
 					]
@@ -27,16 +25,26 @@
 		},
 		{
 			"name": "getAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"size\": 10,\r\n    \"sort\": \"id\",\r\n    \"direction\": \"ASC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080{{bookPrefix}}/",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{bookPrefix}}/",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{bookPrefix}}"
 					],
-					"port": "8080{{bookPrefix}}",
 					"path": [
 						""
 					]
@@ -51,7 +59,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"test\",\r\n    \"resume\": \"test\",\r\n    \"author\": {\r\n        \"id\": 1,\r\n        \"nickname\": \"test\",\r\n        \"email\": \"test\"\r\n    },\r\n    \"editorial\": \"test\",\r\n    \"publicationDate\": \"2022-12-01\",\r\n    \"commentList\": [\r\n        {\r\n            \"id\": 1,\r\n            \"author\": {\r\n               \"id\": 1,\r\n                \"nickname\": \"test\",\r\n                \"email\": \"test\"\r\n            },\r\n            \"comment\": \"test\",\r\n            \"points\": 1\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"title\": \"test\",\r\n    \"resume\": \"test\",\r\n    \"author\": {\r\n        \"nickname\": \"test\",\r\n        \"email\": \"test\"\r\n    },\r\n    \"editorial\": \"test\",\r\n    \"publicationDate\": \"2022-12-01\",\r\n    \"commentList\": [\r\n        {\r\n            \"author\": {\r\n                \"nickname\": \"test2\",\r\n                \"email\": \"test2\"\r\n            },\r\n            \"comment\": \"test\",\r\n            \"points\": 1\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -59,12 +67,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080{{bookPrefix}}/",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{bookPrefix}}/",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{bookPrefix}}"
 					],
-					"port": "8080{{bookPrefix}}",
 					"path": [
 						""
 					]
@@ -79,7 +85,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"test\",\r\n    \"resume\": \"test\",\r\n    \"author\": {\r\n        \"id\": 1,\r\n        \"nickname\": \"test\",\r\n        \"email\": \"test\"\r\n    },\r\n    \"editorial\": \"test\",\r\n    \"publicationDate\": \"2022-12-01\",\r\n    \"commentList\": [\r\n        {\r\n            \"id\": 1,\r\n            \"author\": {\r\n               \"id\": 1,\r\n                \"nickname\": \"test\",\r\n                \"email\": \"test\"\r\n            },\r\n            \"comment\": \"test\",\r\n            \"points\": 1\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"test edit\",\r\n    \"resume\": \"test edit\",\r\n    \"author\": {\r\n        \"id\": 1,\r\n        \"nickname\": \"test edit\",\r\n        \"email\": \"test edit\"\r\n    },\r\n    \"editorial\": \"test edit\",\r\n    \"publicationDate\": \"2022-12-04\",\r\n    \"commentList\": [\r\n        {\r\n            \"id\": 1,\r\n            \"author\": {\r\n               \"id\": 1,\r\n                \"nickname\": \"test edit\",\r\n                \"email\": \"test edit\"\r\n            },\r\n            \"comment\": \"test edit\",\r\n            \"points\": 1\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,12 +93,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080{{bookPrefix}}/1",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{bookPrefix}}/1",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{bookPrefix}}"
 					],
-					"port": "8080{{bookPrefix}}",
 					"path": [
 						"1"
 					]
@@ -106,12 +110,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080{{bookPrefix}}/1",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{bookPrefix}}/1",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{bookPrefix}}"
 					],
-					"port": "8080{{bookPrefix}}",
 					"path": [
 						"1"
 					]
@@ -121,16 +123,26 @@
 		},
 		{
 			"name": "getAllTitles",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"size\": 10,\r\n    \"sort\": \"id\",\r\n    \"direction\": \"ASC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080{{bookPrefix}}/titles",
-					"protocol": "http",
+					"raw": "{{baseUrl}}{{bookPrefix}}/titles",
 					"host": [
-						"localhost"
+						"{{baseUrl}}{{bookPrefix}}"
 					],
-					"port": "8080{{bookPrefix}}",
 					"path": [
 						"titles"
 					]

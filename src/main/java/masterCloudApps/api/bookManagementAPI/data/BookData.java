@@ -6,6 +6,7 @@ import masterCloudApps.api.bookManagementAPI.models.Comment;
 import masterCloudApps.api.bookManagementAPI.models.Userr;
 import masterCloudApps.api.bookManagementAPI.repository.BookRepository;
 import masterCloudApps.api.bookManagementAPI.repository.CommentRepository;
+import masterCloudApps.api.bookManagementAPI.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,10 +16,13 @@ import java.util.Arrays;
 public class BookData {
     private BookRepository bookRepository;
     private CommentRepository commentRepository;
+    private UserRepository userRepository;
 
-    public BookData(BookRepository bookRepository, CommentRepository commentRepository) {
+    public BookData(BookRepository bookRepository, CommentRepository commentRepository,
+                    UserRepository userRepository) {
         this.bookRepository = bookRepository;
         this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
     }
 
     @PostConstruct
@@ -50,9 +54,8 @@ public class BookData {
                 .comment("test comment 2")
                 .points(5)
                 .build();
-        bookRepository.save(book);
-        commentRepository.saveAll(Arrays.asList(comment1, comment2));
-        // book.setCommentList(Arrays.asList(comment1, comment2));
-        // bookRepository.save(book);
+        this.userRepository.save(author);
+        this.bookRepository.save(book);
+        this.commentRepository.saveAll(Arrays.asList(comment1, comment2));
     }
 }

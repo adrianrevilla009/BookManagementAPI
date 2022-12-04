@@ -1,5 +1,6 @@
 package masterCloudApps.api.bookManagementAPI.controllers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import masterCloudApps.api.bookManagementAPI.data.BookData;
 import masterCloudApps.api.bookManagementAPI.dto.BookDto;

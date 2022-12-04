@@ -1,5 +1,6 @@
 package masterCloudApps.api.bookManagementAPI.services;
 
+import masterCloudApps.api.bookManagementAPI.models.Book;
 import masterCloudApps.api.bookManagementAPI.models.Comment;
 import masterCloudApps.api.bookManagementAPI.models.Userr;
 import masterCloudApps.api.bookManagementAPI.repository.UserRepository;
@@ -14,10 +15,13 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final CommentService commentService;
+    private final BookService bookService;
 
-    public UserServiceImpl(UserRepository userRepository, CommentService commentService) {
+    public UserServiceImpl(UserRepository userRepository, CommentService commentService,
+                           BookService bookService) {
         this.userRepository = userRepository;
         this.commentService = commentService;
+        this.bookService = bookService;
     }
 
     @Override
@@ -40,6 +44,11 @@ public class UserServiceImpl implements UserService{
         List<Comment> commentList = this.commentService.findByAuthorId(id);
         if (commentList.size() > 0) {
             Optional<Userr> userr = this.userRepository.findById(id);
+
+            commentList.forEach(comment -> this.commentService.deleteById(comment.getId()));
+
+            List<Book> bookList = this.bookService.findByAuthorId(id);
+            bookList.forEach(book -> this.bookService.deleteById(book.getId()));
             this.userRepository.deleteById(id);
             return userr;
         }

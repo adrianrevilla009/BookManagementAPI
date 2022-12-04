@@ -5,6 +5,7 @@ import masterCloudApps.api.bookManagementAPI.models.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
@@ -15,4 +16,6 @@ public interface BookService {
     Book edit(Long id, Book book);
 
     Page<BookDto> findAllTitles(Pageable page);
+
+    List<Book> findByAuthorId(Long id);
 }
