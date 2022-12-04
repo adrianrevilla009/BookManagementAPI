@@ -1,9 +1,11 @@
 package masterCloudApps.api.bookManagementAPI.services;
 
 import masterCloudApps.api.bookManagementAPI.dto.BookDto;
+import masterCloudApps.api.bookManagementAPI.mappers.BookMapper;
 import masterCloudApps.api.bookManagementAPI.models.Book;
 import masterCloudApps.api.bookManagementAPI.repository.BookRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,11 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService{
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     @Override
@@ -50,8 +54,8 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Page<BookDto> findAllTitles(Pageable page) {
-        List<BookDto> bookDtoList = this.bookRepository.findAllTitles(page);
-        // TODO use rowMapper
-
+        Page<Book> bookPage = this.bookRepository.findAll(page);
+        List<BookDto> bookDtoList = bookPage.getContent().stream().map(this.bookMapper::toDto).toList();
+        return new PageImpl<>(bookDtoList, page, bookDtoList.size());
     }
 }
